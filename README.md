@@ -1,74 +1,89 @@
-# PWNCHECK
+# PwnCheck | Password Breach Checker
 
-```
-⚡ pwncheck ⚡
-╔══════════════════╗
-║   PWNCHECK       ║
-╚══════════════════╝
-```
+![Security Tool](https://img.shields.io/badge/Purpose-Breach%20Checker-green?style=for-the-badge)
+![Go](https://img.shields.io/badge/Go-1.21+-00ADD8?style=for-the-badge&logo=go)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-> A powerful tool built for modern developers
+---
 
-## ✨ Features
+## Check If Passwords Have Been Pwned
 
-- 🚀 Blazing fast performance
-- 💎 Clean and intuitive API
-- 🔧 Zero configuration needed
-- 🛡️ Secure by default
-- 📦 Single binary, no dependencies
+Check passwords and email addresses against the Have I Been Pwned database to see if they've appeared in data breaches.
 
-## 📥 Installation
+**Why PwnCheck?**
+- Privacy-first: Uses k-Anonymity model
+- Never sends full password to any server
+- Fast batch checking
+- CLI-first design
+
+---
+
+## How It Works
+
+PwnCheck uses the Have I Been Pwned Passwords API with k-Anonymity:
+1. Hash your password (SHA-1)
+2. Send only the first 5 characters to the API
+3. API returns all hashes starting with those characters
+4. Check locally if your full hash is in the response
+
+**Your password never leaves your machine in plain text.**
+
+---
+
+## Features
+
+- 🔐 **Privacy-first** - k-Anonymity implementation
+- 📧 **Email checking** - Check if emails were in breaches
+- 📊 **Password auditing** - Check company password policies
+- 🔄 **Batch mode** - Check multiple passwords at once
+- ⚡ **Fast** - Concurrent checking
+
+---
+
+## Installation
 
 ```bash
 git clone https://github.com/simplestar-992/pwncheck.git
 cd pwncheck
-go build -o pwncheck .
-./pwncheck --help
+go build -o pwncheck -ldflags="-s -w"
 ```
-
-## 🚀 Quick Start
-
-```bash
-./pwncheck -h
-```
-
-## 🧪 Examples
-
-```bash
-# Example 1
-./pwncheck status
-
-# Example 2  
-./pwncheck --verbose
-
-# Example 3
-./pwncheck help
-```
-
-## 📊 Project Info
-
-| Property | Value |
-|----------|-------|
-| Language | Go 🟢 |
-| Status | Active |
-| License | MIT |
-
-## 🤝 Contributing
-
-Contributions welcome! Open an issue or PR.
-
-## 📄 License
-
-MIT © **simplestar-992**
 
 ---
 
-<p align="center">
-  <img src="https://img.shields.io/badge/pwncheck-red-red?style=for-the-badge" alt=""/>
-  <img src="https://img.shields.io/github/v/tag/simplestar-992/pwncheck?style=for-the-badge" alt=""/>
-  <img src="https://img.shields.io/github/license/simplestar-992/pwncheck?style=for-the-badge" alt=""/>
-</p>
+## Usage
 
-<p align="center">
-  Built with ❤️ by <a href="https://github.com/simplestar-992">simplestar-992</a>
-</p>
+```bash
+# Check a password
+./pwncheck password "mypassword123"
+
+# Check an email
+./pwncheck email "user@example.com"
+
+# Check password list
+./pwncheck passwords -f passwords.txt
+
+# Check with quiet mode (exit 0 if safe, 1 if pwned)
+./pwncheck password "mypassword" -q
+```
+
+---
+
+## Examples
+
+```bash
+# In scripts
+if ./pwncheck password "$USER_PASS" -q; then
+    echo "Password is safe"
+else
+    echo "⚠️ Password found in breach database!"
+fi
+
+# Password policy enforcement
+./pwncheck passwords -f /etc/shadow -v
+```
+
+---
+
+## License
+
+MIT © 2024 [simplestar-992](https://github.com/simplestar-992)
