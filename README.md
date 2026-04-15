@@ -1,30 +1,27 @@
-# $(basename $(pwd) | tr '[:lower:]' '[:upper:]')
+# PWNCHECK
 
-## Description
-
-A high-performance tool built with Go.
+**Check if Passwords are Pwned**
 
 ## Features
 
 - 🚀 Fast and efficient
-- 📦 Single binary, no dependencies
+- 📦 Single binary, no dependencies  
 - 🔧 Easy to use
+- 🔒 Secure by design
 
 ## Installation
 
-\`\`\`bash
-go install github.com/simplestar-992/$(basename $(pwd))@latest
-\`\`\`
+```bash
+git clone https://github.com/simplestar-992/pwncheck.git
+cd pwncheck
+go build -o pwncheck .
+```
 
 ## Usage
 
-\`\`\`bash
-# Basic usage
-$(basename $(pwd)) [options]
-
-# Help
-$(basename $(pwd)) --help
-\`\`\`
+```bash
+./pwncheck --help
+```
 
 ## License
 
